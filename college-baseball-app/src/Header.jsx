@@ -1,14 +1,8 @@
-import { useRef } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
+import PropTypes from 'prop-types';
 
-export default function Header() {
-  const inputRef = useRef();
 
-  function handleSearch() {
-    const name = inputRef.current.value;
-    window.location.href = `http://localhost:3000/${name.replace(/\s/g, '-')}`;
-  }
-
+export default function Header({ inputRef, onSearch }) {
   return (
     <Grid 
       container 
@@ -26,10 +20,15 @@ export default function Header() {
         />
       </Grid>
       <Grid item>
-        <Button variant="contained" onClick={handleSearch} sx={{ marginLeft: 2 }}>
+        <Button variant="contained" onClick={onSearch} sx={{ marginLeft: 2 }}>
           Search
         </Button>
       </Grid>
     </Grid>
-    );
+  );
 }
+
+Header.propTypes = {
+    inputRef: PropTypes.object.isRequired,
+    onSearch: PropTypes.func.isRequired,
+  };
