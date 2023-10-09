@@ -1,11 +1,14 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 const dbConfig = {
     host: process.env.DB_HOST,
