@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
 
 export default function Player({ data }) {
-  const hittingStats = data[2];  // Accessing the third object in the data array for hitting stats
+  const hittingStats = data[1];  // Accessing the third object in the data array for hitting stats
 
   return (
     <Container>
