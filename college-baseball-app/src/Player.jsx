@@ -15,10 +15,9 @@ export default function Player({ data }) {
   return (
     <Container>
         <h1>{name}</h1>
-
         {hasBatting && <Batting data={data} />}
-        {hasFielding && <Fielding data={data} />}
         {hasPitching && <Pitching data={data} />}
+        {hasFielding && <Fielding data={data} />}
     </Container>
   )
 }
