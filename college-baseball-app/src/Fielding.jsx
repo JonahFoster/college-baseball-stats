@@ -2,37 +2,25 @@ import PropTypes from 'prop-types';
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
 
 export default function Fielding({ data }) {
-  const stats = data[0];
+    const stats = data.find(stat => stat.data_type === 'fielding')
 
   return (
     <Container>
         <h1>{data[0].name}</h1>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
-            <h2>Batting</h2>
+            <h2>Fielding</h2>
             <Table size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>Season</TableCell>
                         <TableCell>GP</TableCell>
                         <TableCell>GS</TableCell>
-                        <TableCell>R</TableCell>
-                        <TableCell>AB</TableCell>
-                        <TableCell>H</TableCell>
-                        <TableCell>2B</TableCell>
-                        <TableCell>3B</TableCell>
-                        <TableCell>TB</TableCell>
-                        <TableCell>HR</TableCell>
-                        <TableCell>RBI</TableCell>
-                        <TableCell>BB</TableCell>
-                        <TableCell>HBP</TableCell>
-                        <TableCell>SF</TableCell>
-                        <TableCell>SH</TableCell>
-                        <TableCell>K</TableCell>
-                        <TableCell>CS</TableCell>
-                        <TableCell>PICKED</TableCell>
-                        <TableCell>SB</TableCell>
-                        <TableCell>IBB</TableCell>
-                        <TableCell>GDP</TableCell>
+                        <TableCell>PO</TableCell>
+                        <TableCell>A</TableCell>
+                        <TableCell>TC</TableCell>
+                        <TableCell>E</TableCell>
+                        <TableCell>FldPct</TableCell>
+                        <TableCell>IDP</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -40,24 +28,12 @@ export default function Fielding({ data }) {
                         <TableCell>{stats.season}</TableCell>
                         <TableCell>{stats.GP}</TableCell>
                         <TableCell>{stats.GS}</TableCell>
-                        <TableCell>{stats.R}</TableCell>
-                        <TableCell>{stats.AB}</TableCell>
-                        <TableCell>{stats.H}</TableCell>
-                        <TableCell>{stats['2B']}</TableCell>
-                        <TableCell>{stats['3B']}</TableCell>
-                        <TableCell>{stats.TB}</TableCell>
-                        <TableCell>{stats.HR}</TableCell>
-                        <TableCell>{stats.RBI}</TableCell>
-                        <TableCell>{stats.BB}</TableCell>
-                        <TableCell>{stats.HBP}</TableCell>
-                        <TableCell>{stats.SF}</TableCell>
-                        <TableCell>{stats.SH}</TableCell>
-                        <TableCell>{stats.K}</TableCell>
-                        <TableCell>{stats.CS}</TableCell>
-                        <TableCell>{stats.Picked}</TableCell>
-                        <TableCell>{stats.SB}</TableCell>
-                        <TableCell>{stats.IBB}</TableCell>
-                        <TableCell>{stats.GDP}</TableCell>
+                        <TableCell>{stats.PO}</TableCell>
+                        <TableCell>{stats.A}</TableCell>
+                        <TableCell>{stats.TC}</TableCell>
+                        <TableCell>{stats.E}</TableCell>
+                        <TableCell>{stats.FldPct}</TableCell>
+                        <TableCell>{stats.IDP}</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

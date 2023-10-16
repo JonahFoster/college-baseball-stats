@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
 
 export default function Batting({ data }) {
-  const stats = data[1];
+  const stats = data.find(stat => stat.data_type === 'batting')
 
   return (
     <Container>
