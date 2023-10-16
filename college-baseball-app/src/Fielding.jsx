@@ -6,7 +6,6 @@ export default function Fielding({ data }) {
 
   return (
     <Container>
-        <h1>{data[0].name}</h1>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
             <h2>Fielding</h2>
             <Table size="small">

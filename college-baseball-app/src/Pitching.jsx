@@ -6,9 +6,8 @@ export default function Pitching({ data }) {
 
   return (
     <Container>
-        <h1>{stats.name}</h1>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
-            <h2>Batting</h2>
+            <h2>Pitching</h2>
             <Table size="small">
                 <TableHead>
                     <TableRow>

@@ -6,7 +6,6 @@ export default function Batting({ data }) {
 
   return (
     <Container>
-        <h1>{data[0].name}</h1>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
             <h2>Batting</h2>
             <Table size="small">
