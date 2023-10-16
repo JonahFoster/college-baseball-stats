@@ -6,15 +6,15 @@ import Pitching from './Pitching'
 
 export default function Player({ data }) {
   const playerInfo = data[0]
-  const { pos, name } = playerInfo
+  const { name } = playerInfo
 
-  const hasBatting = ['INF', 'OF', 'UT'].includes(pos)
-  const hasFielding = ['INF', 'P', 'OF', 'UT'].includes(pos)
-  const hasPitching = ['P', 'UT'].includes(pos)
+  const hasBatting = !!data.find(stat => stat.data_type === 'batting')
+  const hasFielding = !!data.find(stat => stat.data_type === 'fielding')
+  const hasPitching = !!data.find(stat => stat.data_type === 'pitching')
 
   return (
     <Container>
-        <h1>{name}</h1> {/* Rendering player's name here */}
+        <h1>{name}</h1>
 
         {hasBatting && <Batting data={data} />}
         {hasFielding && <Fielding data={data} />}
