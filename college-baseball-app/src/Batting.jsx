@@ -8,7 +8,7 @@ export default function Batting({ data }) {
     <Container>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
             <h2>Batting</h2>
-            <Table size="small">
+            <Table size="medium">
                 <TableHead>
                     <TableRow>
                         <TableCell>Season</TableCell>
