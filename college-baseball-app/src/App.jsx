@@ -26,7 +26,7 @@ export default function App() {
     const name = inputRef.current.value;
     fetch(`http://localhost:3000/${name.replace(/\s/g, '-')}`)
       .then(response => response.json())
-      .then(data => setPlayerData(data)) // Update state with fetched player data
+      .then(data => setPlayerData(data))
       .catch(error => console.error(error));
   }
 
