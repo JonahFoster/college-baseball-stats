@@ -4,6 +4,17 @@ import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow
 export default function Batting({ data }) {
   const stats = data.find(stat => stat.data_type === 'batting')
 
+  // Stat Calculations
+  function formatNumber(num) {
+    return num < 1 ? num.toString().substring(1) : num.toString()
+  }
+  
+  const battingAverage = formatNumber((stats.H / stats.AB).toFixed(3))
+  const sluggingPercentage = formatNumber((stats.TB / stats.AB).toFixed(3))
+  const onBasePercentage = formatNumber(((stats.H + stats.BB + stats.HBP) / (stats.AB + stats.BB + stats.HBP + stats.SF)).toFixed(3))
+  const onBasePlusSlug = formatNumber((parseFloat(sluggingPercentage) + parseFloat(onBasePercentage)).toFixed(3))
+  
+
   return (
     <Container>
         <TableContainer component={Paper} style={{margin: 'auto' }}>
@@ -12,7 +23,10 @@ export default function Batting({ data }) {
                 <TableHead>
                     <TableRow>
                         <TableCell>Season</TableCell>
-                        <TableCell>GP</TableCell>
+                        <TableCell>BA</TableCell>
+                        <TableCell>OBP</TableCell>
+                        <TableCell>SLG</TableCell>
+                        <TableCell>OPS</TableCell>
                         <TableCell>GS</TableCell>
                         <TableCell>R</TableCell>
                         <TableCell>AB</TableCell>
@@ -37,6 +51,10 @@ export default function Batting({ data }) {
                 <TableBody>
                     <TableRow>
                         <TableCell>{stats.season}</TableCell>
+                        <TableCell>{battingAverage}</TableCell>
+                        <TableCell>{onBasePercentage}</TableCell>
+                        <TableCell>{sluggingPercentage}</TableCell>
+                        <TableCell>{onBasePlusSlug}</TableCell>
                         <TableCell>{stats.GP}</TableCell>
                         <TableCell>{stats.GS}</TableCell>
                         <TableCell>{stats.R}</TableCell>
