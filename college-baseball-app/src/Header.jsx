@@ -19,18 +19,26 @@ export default function Header({ onSearch, darkMode, onToggleDarkMode }) {
       justifyContent="center" 
       style={{ minHeight: '20vh' }}
     >
-      <Grid item>
-        <TextField 
-          id="outlined-basic" 
-          label="Search" 
-          variant="outlined" 
-          inputRef={inputRef}
-        />
-      </Grid>
-      <Grid item>
-        <Button variant="contained" onClick={handleSearch} sx={{ marginLeft: 2 }}>
-          Search
-        </Button>
+      <Grid 
+        container 
+        item 
+        xs={6}
+        alignItems="center" 
+        justifyContent="center"
+      >
+        <Grid item>
+          <TextField 
+            id="outlined-basic" 
+            label="Search" 
+            variant="outlined" 
+            inputRef={inputRef}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={handleSearch} sx={{ marginLeft: 2 }}>
+            Search
+          </Button>
+        </Grid>
       </Grid>
       <Grid item>
         <FormControlLabel
@@ -38,7 +46,7 @@ export default function Header({ onSearch, darkMode, onToggleDarkMode }) {
         />
       </Grid>
     </Grid>
-  ) 
+  )
 }
 
 Header.propTypes = {
