@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types' 
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
 
 export default function Fielding({ data }) {
@@ -38,9 +38,9 @@ export default function Fielding({ data }) {
             </Table>
         </TableContainer>
     </Container>
-  );
+  ) 
 }
 
 Fielding.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+} 
