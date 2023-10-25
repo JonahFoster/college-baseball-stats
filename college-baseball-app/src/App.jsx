@@ -24,7 +24,7 @@ export default function App() {
 
   // Handler to initiate player search and update player data state
   function handleSearch(name) {
-    fetch(`http://localhost:3000/${name.replace(/\s/g, '-')}`)
+    fetch(`http://localhost:3000/search/${name.replace(/\s/g, '-')}`)
       .then(response => response.json())
       .then(data => setPlayerData(data))
       .catch(error => console.error(error))
