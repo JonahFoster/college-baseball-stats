@@ -6,23 +6,43 @@ import Header from "./Header.jsx"
 import Player from "./Player.jsx"
 
 export default function App() {
-  // State for holding player data and dark mode preference
   const [playerData, setPlayerData] = useState(null)
   const [darkMode, setDarkMode] = useState(false)
 
-  // Theme configuration based on dark mode preference
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
+      primary: {
+        main: '#00e0ff',
+      },
+      secondary: {
+        main: '#444444',
+      },
+      error: {
+        main: '#ff4d4d',
+      },
+      background: {
+        default: darkMode ? '#121212' : '#ffffff',
+        paper: darkMode ? '#1e1e1e' : '#ffffff',
+      },
+      text: {
+        primary: darkMode ? '#ffffff' : '#000000',
+        secondary: darkMode ? '#bbbbbb' : '#000000',
+      },
+    },
+    overrides: {
+      MuiButton: {
+        root: {
+          borderRadius: '8px',
+        },
+      },
     },
   })
 
-  // Handler to toggle dark mode on and off
-  function handleThemeChange() {
+  function handleDarkMode() {
     setDarkMode(!darkMode)
   }
 
-  // Handler to initiate player search and update player data state
   function handleSearch(name) {
     fetch(`http://localhost:3000/search/${name.replace(/\s/g, '-')}`)
       .then(response => response.json())
@@ -37,7 +57,7 @@ export default function App() {
         <Header
           onSearch={handleSearch}
           darkMode={darkMode}
-          onToggleDarkMode={handleThemeChange}
+          onToggleDarkMode={handleDarkMode}
         />
         {playerData && <Player data={playerData} />}
       </Box>
