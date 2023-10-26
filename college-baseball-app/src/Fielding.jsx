@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types' 
-import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
+import { Typography, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material';
 
 export default function Fielding({ data }) {
     const stats = data.find(stat => stat.data_type === 'fielding')
 
   return (
     <Container>
-        <TableContainer component={Paper} style={{margin: 'auto' }}>
-            <h2>Fielding</h2>
-            <Table size="small">
+        <TableContainer style={{margin: 'auto' }}>
+            <Typography sx={{ mt: '1em' }} variant="h5">
+                Fielding
+            </Typography>
+            <Table size="medium">
                 <TableHead>
                     <TableRow>
                         <TableCell>Season</TableCell>

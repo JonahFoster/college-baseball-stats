@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Container, Card, CardContent, Typography, Box } from '@mui/material'
+import { Container, Card, CardContent, Typography, Box, Chip } from '@mui/material'
 import Batting from './Batting'
 import Fielding from './Fielding'
 import Pitching from './Pitching'
@@ -12,32 +12,33 @@ export default function Player({ data }) {
   const hasFielding = !!data.find(stat => stat.data_type === 'fielding')
   const hasPitching = !!data.find(stat => stat.data_type === 'pitching')
 
+  function createFullYear(year) {
+    if (year === "Fr") return "Freshman"
+    if (year === "So") return "Sophomore"
+    if (year === "Jr") return "Junior"
+    if (year === "Sr") return "Senior"
+  }
+
   return (
     <Container>
-      <Card>
+      <Card variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h4">
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            School: {school_name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Jersey Number: {Jersey}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Position: {pos}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Year: {Yr}
-          </Typography>
+          <Box mt={2}>
+            <Chip label={school_name} color="primary" sx={{ mr: '5px' }}/>
+            <Chip label={`#${Jersey}`} color="primary" sx={{ mr: '5px' }}/>
+            <Chip label={pos} color="primary" sx={{ mr: '5px' }}/>
+            <Chip label={createFullYear(Yr)} color="primary"/>
+          </Box>
         </CardContent>
       </Card>
-      <Box mt={4}>
+      <Card variant="outlined" sx={{ mt: '10px' }}>
         {hasBatting && <Batting data={data} />}
         {hasPitching && <Pitching data={data} />}
         {hasFielding && <Fielding data={data} />}
-      </Box>
+      </Card>
     </Container>
   )
 }
