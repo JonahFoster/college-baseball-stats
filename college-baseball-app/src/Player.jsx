@@ -8,7 +8,7 @@ export default function Player({ data }) {
   const playerInfo = data[0]
   const { name, Jersey, pos, Yr, school_name } = playerInfo
 
-  const hasBatting = !!data.find(stat => stat.data_type === 'batting')
+  const hasBatting = !!data.find(stat => stat.data_type === 'batting' && stat.AB !== 0);
   const hasFielding = !!data.find(stat => stat.data_type === 'fielding')
   const hasPitching = !!data.find(stat => stat.data_type === 'pitching')
 
