@@ -7,7 +7,7 @@ export default function Pitching({ data }) {
   return (
     <Container>
         <TableContainer style={{margin: 'auto' }}>
-            <Typography sx={{ mt: '1em' }} variant="h5">
+            <Typography sx={{ my: '1em' }} variant="h5">
                 Pitching
             </Typography>
             <Table size="medium">

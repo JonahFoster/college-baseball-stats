@@ -24,7 +24,7 @@ export default function App() {
     palette: {
       mode: darkMode ? 'dark' : 'light',
       primary: {
-        main: '#00e0ff',
+        main: '#0055CC',
       },
       secondary: {
         main: '#444444',
@@ -47,8 +47,22 @@ export default function App() {
           borderRadius: '8px',
         },
       },
+      MuiTableCell: {
+        root: {
+          borderBottom: '1px solid rgba(224, 224, 224, 1)',
+        },
+        head: {
+          fontWeight: 'bold',
+          borderBottom: '2px solid rgba(224, 224, 224, 1)', // Thicker border for header cells
+        },
+        body: {
+          '&:not(:last-child)': {
+            borderRight: '1px solid rgba(224, 224, 224, 1)', // Right border for all cells except the last one
+          },
+        },
+      },
     },
-  })
+  });
 
   function handleDarkMode() {
     setDarkMode(!darkMode)

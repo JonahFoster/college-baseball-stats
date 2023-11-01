@@ -31,7 +31,7 @@ export default function Header({ onSearch, darkMode, onToggleDarkMode }) {
         <Grid item>
           <TextField 
             id="outlined-basic" 
-            label="Search" 
+            placeholder="Search" 
             variant="outlined" 
             inputRef={inputRef}
           />

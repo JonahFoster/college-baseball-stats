@@ -82,7 +82,11 @@ export default function Player() {
       </Card>
       <Card variant="outlined" sx={{ mt: '10px' }}>
         {hasBatting && <Batting data={data} />}
+      </Card>
+      <Card variant="outlined" sx={{ mt: '10px' }}>
         {hasPitching && <Pitching data={data} />}
+      </Card>
+      <Card variant="outlined" sx={{ mt: '10px' }}>
         {hasFielding && <Fielding data={data} />}
       </Card>
     </Container>

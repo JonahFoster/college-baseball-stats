@@ -6,7 +6,7 @@ export default function Fielding({ data }) {
   return (
     <Container>
         <TableContainer style={{margin: 'auto' }}>
-            <Typography sx={{ mt: '1em' }} variant="h5">
+            <Typography sx={{ my: '1em' }} variant="h5">
                 Fielding
             </Typography>
             <Table size="medium">

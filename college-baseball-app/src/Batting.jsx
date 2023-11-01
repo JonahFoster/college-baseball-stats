@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { Typography, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material'
 
+
 export default function Batting({ data }) {
   const stats = data.find(stat => stat.data_type === 'batting')
   // Stat Calculations
@@ -17,7 +18,7 @@ export default function Batting({ data }) {
   return (
     <Container>
         <TableContainer style={{margin: 'auto' }}>
-        <Typography sx={{ mt: '1em' }} variant="h5">
+        <Typography sx={{ my: '1em' }} variant="h5">
             Batting
         </Typography>
             <Table size="medium">
