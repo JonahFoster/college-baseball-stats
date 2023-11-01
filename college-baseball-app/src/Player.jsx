@@ -9,15 +9,16 @@ import './assets/player.css'
 
 export default function Player() {
   const [data, setData] = useState([]);
-  const { name: playerName } = useParams();
+  const { stats_player_seq } = useParams(); // Changed from name to stats_player_seq
   const DEFAULT_COLOR = "#FFFFFF"; // Temporary default color to test
 
   useEffect(() => {
-    fetch(`http://localhost:3000/search/${playerName.replace(/\s/g, '-')}`)
+    // Updated the fetch URL to get player based on stats_player_seq
+    fetch(`http://localhost:3000/player/${stats_player_seq}`)
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error(error))
-  }, [playerName]);
+  }, [stats_player_seq]);
 
   const playerInfo = data[0] || {};  // Protect against undefined
   const { name, Jersey, pos, Yr, school_name } = playerInfo;

@@ -244,6 +244,27 @@ app.get('/search/:playerName', async (req, res) => {
     }
 })
 
+app.get('/player/:playerId', async (req, res) => {
+    const playerId = req.params.playerId;
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'SELECT * FROM collegebaseballplayer_unified WHERE stats_player_seq = ?',
+            [playerId]
+        );
+        connection.end();
+
+        if (rows.length === 0) {
+            return res.status(404).send('Player not found');
+        }
+
+        res.json(rows);  // Return the entire array, not just the first record
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)

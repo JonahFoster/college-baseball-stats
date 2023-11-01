@@ -5,10 +5,12 @@ import { Grid, CssBaseline, Box, Container } from '@mui/material';
 import Header from "./Header.jsx"
 import Player from "./Player.jsx"
 import TopList from "./TopList.jsx"
+import Search from "./Search.jsx"
 
 export default function App() {
   const [playerData, setPlayerData] = useState(null)
   const [darkMode, setDarkMode] = useState(false)
+  const [multipleSearchResults, setMultipleSearchResults] = useState([]);
   const [topListData, setTopListData] = useState({
     hr: [],
     ba: [],
@@ -19,6 +21,7 @@ export default function App() {
     kp: [],
     baa: []
   });
+
 
   const theme = createTheme({
     palette: {
@@ -72,12 +75,23 @@ export default function App() {
     fetch(`http://localhost:3000/search/${name.replace(/\s/g, '-')}`)
       .then(response => response.json())
       .then(data => {
-        setPlayerData(data);
-        // Navigate to the player route after setting the data
-        navigate(`/player/${name.replace(/\s/g, '-')}`);
+        const firstPlayerSeq = data[0].stats_player_seq;
+        const hasMultiplePlayers = data.some(player => player.stats_player_seq !== firstPlayerSeq);
+  
+        if (!hasMultiplePlayers) {
+          // If only one unique player is returned, set the player data and navigate to the player page
+          setPlayerData(data[0]);
+          navigate(`/player/${firstPlayerSeq}`);
+        } else {
+          // Multiple players found with the same name
+          setMultipleSearchResults(data);
+          navigate('/search');
+        }
       })
       .catch(error => console.error(error));
   }
+  
+  
 
   function handleTopLists() {
     const routes = [
@@ -124,7 +138,8 @@ export default function App() {
             onToggleDarkMode={handleDarkMode}
           />
           <Routes>
-            <Route path="/player/:name" element={<Player data={playerData} />} />
+            <Route path="/player/:stats_player_seq" element={<Player data={playerData} />} />
+            <Route path="/search" element={<Search players={multipleSearchResults} />} />
             <Route path="/" element={
               <Container>
                 <Grid container justifyContent="space-between" mt={2}>
@@ -132,13 +147,13 @@ export default function App() {
                     <TopList data={topListData.hr} title="Top HR" statKey="HR"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.ba} title="Top BA" statKey="batting_average"/>
+                    <TopList data={topListData.ba} title="Top BA" statKey="batting_average"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.ops} title="Top OPS" statKey="OPS"/>
+                    <TopList data={topListData.ops} title="Top OPS" statKey="OPS"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.bb} title="Top BB" statKey="walks"/>
+                    <TopList data={topListData.bb} title="Top BB" statKey="walks"/>
                   </Grid>  
                 </Grid>
                 <Grid container justifyContent="space-between" mt={2}>
@@ -146,17 +161,17 @@ export default function App() {
                     <TopList data={topListData.era} title="Top ERA" statKey="ERA"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.k} title="Top K" statKey="strikeouts"/>
+                    <TopList data={topListData.k} title="Top K" statKey="strikeouts"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.kp} title="Top K%" statKey="strikeout_percentage"/>
+                    <TopList data={topListData.kp} title="Top K%" statKey="strikeout_percentage"/>
                   </Grid>
                   <Grid item xs={2.5}>
-                  <TopList data={topListData.baa} title="Top BAA" statKey="batting_average_against"/>
+                    <TopList data={topListData.baa} title="Top BAA" statKey="batting_average_against"/>
                   </Grid>  
                 </Grid>
-            </Container>
-          } />
+              </Container>
+            } />
           </Routes>
         </Box>
       </Router>
