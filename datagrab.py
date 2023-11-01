@@ -40,32 +40,33 @@ def get_player_data(data_type):
     except:
         all_data = pd.DataFrame()
 
-    for team_id in team_ids:
-        try:
-            print(f"Processing team_id {team_id} for {data_type}...")
-            df = ncaa_scraper.ncaa_team_stats(team_id, 2023, data_type, include_advanced=False)
-            if df.empty:
-                print(f"No data for team_id {team_id} for {data_type}. Skipping...")
-                continue
+    for year in range(2014, 2024):  # This will loop through years 2014 to 2023
+        for team_id in team_ids:
+            try:
+                print(f"Processing team_id {team_id} for {data_type} in year {year}...")
+                df = ncaa_scraper.ncaa_team_stats(team_id, year, data_type, include_advanced=False)
+                if df.empty:
+                    print(f"No data for team_id {team_id} for {data_type} in year {year}. Skipping...")
+                    continue
 
-            school_name = lookup.lookup_school_reverse(team_id)
-            df['school_name'] = f"{school_name[0]}"
-            df['data_type'] = data_type  # New column to distinguish data types in unified table
+                school_name = lookup.lookup_school_reverse(team_id)
+                df['school_name'] = f"{school_name[0]}"
+                df['data_type'] = data_type  # New column to distinguish data types in unified table
 
-            # Append new data to all_data and fill NaN values with zeros
-            all_data = pd.concat([all_data, df]).reset_index(drop=True)
-            all_data.fillna(0, inplace=True)
+                # Append new data to all_data and fill NaN values with zeros
+                all_data = pd.concat([all_data, df]).reset_index(drop=True)
+                all_data.fillna(0, inplace=True)
 
-        except Exception as e:
-            print(f"Error encountered while processing team_id {team_id} for {data_type}: {e}")
+            except Exception as e:
+                print(f"Error encountered while processing team_id {team_id} for {data_type} in year {year}: {e}")
 
-    # Drop duplicate records based on relevant columns and keep the latest
-    all_data.drop_duplicates(subset=['stats_player_seq', 'season', 'school_name', 'data_type'], keep='last', inplace=True)
+        # Drop duplicate records based on relevant columns and keep the latest
+        all_data.drop_duplicates(subset=['stats_player_seq', 'season', 'school_name', 'data_type'], keep='last', inplace=True)
 
-    # Update the entire database in one go
-    all_data.to_sql('collegebaseballplayer_unified', engine, if_exists='replace', index=False)
+        # Update the entire database in one go
+        all_data.to_sql('collegebaseballplayer_unified', engine, if_exists='replace', index=False)
 
-    print(f"{data_type} data processing complete.")
+        print(f"{data_type} data processing for year {year} complete.")
 
 
 

@@ -26,7 +26,7 @@ export default function Player() {
 
   const hasBatting = !!data.find(stat => stat.data_type === 'batting' && stat.AB !== 0);
   const hasFielding = !!data.find(stat => stat.data_type === 'fielding');
-  const hasPitching = !!data.find(stat => stat.data_type === 'pitching');
+  const hasPitching = !!data.find(stat => stat.data_type === 'pitching' && stat.pitches !== 0);
 
   function createFullYear(year) {
     if (year === "Fr") return "Freshman";
