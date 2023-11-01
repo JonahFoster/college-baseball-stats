@@ -3,7 +3,6 @@ import { Typography, TableContainer, Table, TableBody, TableCell, TableHead, Tab
 
 export default function Batting({ data }) {
   const stats = data.find(stat => stat.data_type === 'batting')
-
   // Stat Calculations
   function formatNumber(num) {
     return num < 1 ? num.toString().substring(1) : num.toString()

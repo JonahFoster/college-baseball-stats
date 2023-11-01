@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, Card, CardContent, Typography, Box, Chip } from '@mui/material';
 import Batting from './Batting';
 import Fielding from './Fielding';
@@ -6,11 +7,22 @@ import Pitching from './Pitching';
 import teamInfo from './assets/logos.json';
 import './assets/player.css'
 
-export default function Player({ data }) {
-  const playerInfo = data[0];
+export default function Player() {
+  const [data, setData] = useState([]);
+  const { name: playerName } = useParams();
+  const DEFAULT_COLOR = "#FFFFFF"; // Temporary default color to test
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/search/${playerName.replace(/\s/g, '-')}`)
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error(error))
+  }, [playerName]);
+
+  const playerInfo = data[0] || {};  // Protect against undefined
   const { name, Jersey, pos, Yr, school_name } = playerInfo;
 
-  const teamData = teamInfo.find(team => team.ncaa_name === school_name);
+  const teamData = teamInfo.find(team => team.ncaa_name === school_name) || {};  // Protect against undefined
 
   const hasBatting = !!data.find(stat => stat.data_type === 'batting' && stat.AB !== 0);
   const hasFielding = !!data.find(stat => stat.data_type === 'fielding');
@@ -37,7 +49,7 @@ export default function Player({ data }) {
               sx={{ 
                 mr: '5px',
                 backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary),
+                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
               }}
             />
             <Chip 
@@ -45,7 +57,7 @@ export default function Player({ data }) {
               sx={{ 
                 mr: '5px',
                 backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary),
+                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
               }}
             />
             <Chip 
@@ -53,14 +65,14 @@ export default function Player({ data }) {
               sx={{ 
                 mr: '5px',
                 backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary),
+                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
               }}
             />
             <Chip 
               label={createFullYear(Yr)} 
               sx={{ 
                 backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary),
+                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
               }}
             />
             </Box>
@@ -76,7 +88,3 @@ export default function Player({ data }) {
     </Container>
   );
 }
-
-Player.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

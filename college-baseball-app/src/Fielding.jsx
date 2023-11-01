@@ -3,7 +3,6 @@ import { Typography, TableContainer, Table, TableBody, TableCell, TableHead, Tab
 
 export default function Fielding({ data }) {
     const stats = data.find(stat => stat.data_type === 'fielding')
-
   return (
     <Container>
         <TableContainer style={{margin: 'auto' }}>
@@ -44,5 +43,5 @@ export default function Fielding({ data }) {
 }
 
 Fielding.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
 } 

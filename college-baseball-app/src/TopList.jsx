@@ -1,4 +1,4 @@
-import { Card, List, ListItem, Typography } from '@mui/material';
+import { Card, List, ListItem, Typography, Link } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function TopList({ data, title, statKey }) {
@@ -8,7 +8,7 @@ export default function TopList({ data, title, statKey }) {
             <List>
                 {data.map((item, index) => (
                     <ListItem key={index}>
-                        <Typography>{`${index + 1}. ${item.name} - ${item[statKey]}`}</Typography>
+                        <Link href={`http://localhost:5173/player/${encodeURIComponent(item.name)}`}>{`${index + 1}. ${item.name} - ${item[statKey]}`}</Link>
                     </ListItem>
                 ))}
             </List>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { TableContainer, Typography, Table, TableBody, TableCell, TableHead, TableRow, Container } from '@mui/material' 
 
 export default function Pitching({ data }) {
-  const stats = data.find(stat => stat.data_type === 'pitching')
+    const stats = data.find(stat => stat.data_type === 'pitching')
 
   return (
     <Container>
@@ -56,5 +56,5 @@ export default function Pitching({ data }) {
 }
 
 Pitching.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
 } 
