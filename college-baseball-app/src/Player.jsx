@@ -6,11 +6,11 @@ import Fielding from './Fielding';
 import Pitching from './Pitching';
 import teamInfo from './assets/logos.json';
 import './assets/player.css'
+import defaultLogo from'./assets/cbb-stats-logo.webp'
 
 export default function Player() {
   const [data, setData] = useState([]);
-  const { stats_player_seq } = useParams(); // Changed from name to stats_player_seq
-  const DEFAULT_COLOR = "#FFFFFF"; // Temporary default color to test
+  const { stats_player_seq } = useParams(); 
 
   useEffect(() => {
     // Updated the fetch URL to get player based on stats_player_seq
@@ -49,47 +49,53 @@ export default function Player() {
               label={school_name} 
               sx={{ 
                 mr: '5px',
-                backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
+                backgroundColor: (theme) => teamData.primary || theme.palette.primary.main,
+                color: theme => theme.palette.getContrastText(teamData.primary || theme.palette.primary.main),
               }}
             />
             <Chip 
               label={`#${Jersey}`} 
               sx={{ 
                 mr: '5px',
-                backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
+                backgroundColor: (theme) => teamData.primary || theme.palette.primary.main,
+                color: theme => theme.palette.getContrastText(teamData.primary || theme.palette.primary.main),
               }}
             />
             <Chip 
               label={pos} 
               sx={{ 
                 mr: '5px',
-                backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
+                backgroundColor: (theme) => teamData.primary || theme.palette.primary.main,
+                color: theme => theme.palette.getContrastText(teamData.primary || theme.palette.primary.main),
               }}
             />
             <Chip 
               label={createFullYear(Yr)} 
               sx={{ 
-                backgroundColor: teamData.primary,
-                color: theme => theme.palette.getContrastText(teamData.primary || DEFAULT_COLOR),
+                backgroundColor: (theme) => teamData.primary || theme.palette.primary.main,
+                color: theme => theme.palette.getContrastText(teamData.primary || theme.palette.primary.main),
               }}
             />
             </Box>
           </Box>
-          <img src={teamData.logos} alt={`${school_name} logo`} className="school-logo" />
+          <img src={teamData.logos || defaultLogo} alt={`${school_name} logo`} className="school-logo" />
         </CardContent>
       </Card>
-      <Card variant="outlined" sx={{ mt: '10px' }}>
-        {hasBatting && <Batting data={data} />}
-      </Card>
-      <Card variant="outlined" sx={{ mt: '10px' }}>
-        {hasPitching && <Pitching data={data} />}
-      </Card>
-      <Card variant="outlined" sx={{ mt: '10px' }}>
-        {hasFielding && <Fielding data={data} />}
-      </Card>
+      {hasBatting && (
+        <Card variant="outlined" sx={{ mt: '10px' }}>
+          <Batting data={data} />
+        </Card>
+      )}
+      {hasPitching && (
+        <Card variant="outlined" sx={{ mt: '10px' }}>
+          <Pitching data={data} />
+        </Card>
+      )}
+      {hasFielding && (
+        <Card variant="outlined" sx={{ mt: '10px' }}>
+          <Fielding data={data} />
+        </Card>
+      )}
     </Container>
   );
 }
