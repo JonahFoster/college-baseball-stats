@@ -16,6 +16,10 @@ const dbConfig = {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
 } 
+
+const CURRENT_SEASON = '2023'
+
+
 // Top 10 Home Run Hitters
 app.get('/top-hr', async (req, res) => {
     try {
@@ -23,10 +27,11 @@ app.get('/top-hr', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, HR
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'batting'
+             WHERE data_type = 'batting' AND season = ?
              ORDER BY HR DESC
-             LIMIT 10`
-        )
+             LIMIT 10`,
+             [CURRENT_SEASON]
+        );
         connection.end()
 
         if (rows.length === 0) {
@@ -48,9 +53,10 @@ app.get('/top-ba', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, ROUND((CAST(H AS DECIMAL) / NULLIF(AB, 0)), 3) AS batting_average
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'batting' AND AB > 100
+             WHERE data_type = 'batting' AND AB > 100 AND season = ?
              ORDER BY batting_average DESC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -77,9 +83,10 @@ app.get('/top-ops', async (req, res) => {
                     ((CAST((H - 2B - 3B - HR) + (2 * 2B) + (3 * 3B) + (4 * HR) AS DECIMAL) / NULLIF(AB, 0))
                 ), 3) AS OPS
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'batting' AND AB > 100
+             WHERE data_type = 'batting' AND AB > 100 AND season = ?
              ORDER BY OPS DESC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -102,9 +109,10 @@ app.get('/top-bb', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, BB AS walks
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'batting'
+             WHERE data_type = 'batting' AND season = ?
              ORDER BY walks DESC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -127,9 +135,10 @@ app.get('/top-era', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, ERA
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'pitching' AND IP > 100
+             WHERE data_type = 'pitching' AND IP > 100 AND season = ?
              ORDER BY ERA ASC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -153,9 +162,10 @@ app.get('/top-k', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, SO AS strikeouts
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'pitching'
+             WHERE data_type = 'pitching' AND season = ?
              ORDER BY strikeouts DESC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -178,9 +188,10 @@ app.get('/top-kp', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, ROUND((CAST(SO AS DECIMAL) / NULLIF(BF, 0)) * 100, 2) AS strikeout_percentage
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'pitching' AND BF > 100
+             WHERE data_type = 'pitching' AND BF > 100 AND season = ?
              ORDER BY strikeout_percentage DESC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
@@ -203,9 +214,10 @@ app.get('/top-baa', async (req, res) => {
         const [rows] = await connection.execute(
             `SELECT name, ROUND((CAST(H AS DECIMAL) / NULLIF(BF, 0)), 3) AS batting_average_against
              FROM collegebaseballplayer_unified
-             WHERE data_type = 'pitching' AND BF > 100
+             WHERE data_type = 'pitching' AND BF > 100 AND season = ?
              ORDER BY batting_average_against ASC
-             LIMIT 10`
+             LIMIT 10`,
+             [CURRENT_SEASON]
         )
         connection.end()
 
