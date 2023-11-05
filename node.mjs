@@ -25,7 +25,7 @@ app.get('/top-hr', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, HR
+            `SELECT name, stats_player_seq, HR
              FROM collegebaseballplayer_unified
              WHERE data_type = 'batting' AND season = ?
              ORDER BY HR DESC
@@ -51,7 +51,7 @@ app.get('/top-ba', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, ROUND((CAST(H AS DECIMAL) / NULLIF(AB, 0)), 3) AS batting_average
+            `SELECT name, stats_player_seq, ROUND((CAST(H AS DECIMAL) / NULLIF(AB, 0)), 3) AS batting_average
              FROM collegebaseballplayer_unified
              WHERE data_type = 'batting' AND AB > 100 AND season = ?
              ORDER BY batting_average DESC
@@ -77,7 +77,7 @@ app.get('/top-ops', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, 
+            `SELECT name, stats_player_seq,
                 ROUND(
                     ((CAST(H AS DECIMAL) + BB + HBP) / NULLIF(AB + BB + HBP + SF, 0)) +
                     ((CAST((H - 2B - 3B - HR) + (2 * 2B) + (3 * 3B) + (4 * HR) AS DECIMAL) / NULLIF(AB, 0))
@@ -107,7 +107,7 @@ app.get('/top-bb', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, BB AS walks
+            `SELECT name, stats_player_seq, BB AS walks
              FROM collegebaseballplayer_unified
              WHERE data_type = 'batting' AND season = ?
              ORDER BY walks DESC
@@ -133,7 +133,7 @@ app.get('/top-era', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, ERA
+            `SELECT name, ERA, stats_player_seq
              FROM collegebaseballplayer_unified
              WHERE data_type = 'pitching' AND IP > 100 AND season = ?
              ORDER BY ERA ASC
@@ -160,7 +160,7 @@ app.get('/top-k', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, SO AS strikeouts
+            `SELECT name, stats_player_seq, SO AS strikeouts
              FROM collegebaseballplayer_unified
              WHERE data_type = 'pitching' AND season = ?
              ORDER BY strikeouts DESC
@@ -186,7 +186,7 @@ app.get('/top-kp', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, ROUND((CAST(SO AS DECIMAL) / NULLIF(BF, 0)) * 100, 2) AS strikeout_percentage
+            `SELECT name, stats_player_seq, ROUND((CAST(SO AS DECIMAL) / NULLIF(BF, 0)) * 100, 2) AS strikeout_percentage
              FROM collegebaseballplayer_unified
              WHERE data_type = 'pitching' AND BF > 100 AND season = ?
              ORDER BY strikeout_percentage DESC
@@ -212,7 +212,7 @@ app.get('/top-baa', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig)
         const [rows] = await connection.execute(
-            `SELECT name, ROUND((CAST(H AS DECIMAL) / NULLIF(BF, 0)), 3) AS batting_average_against
+            `SELECT name, stats_player_seq, ROUND((CAST(H AS DECIMAL) / NULLIF(BF, 0)), 3) AS batting_average_against
              FROM collegebaseballplayer_unified
              WHERE data_type = 'pitching' AND BF > 100 AND season = ?
              ORDER BY batting_average_against ASC

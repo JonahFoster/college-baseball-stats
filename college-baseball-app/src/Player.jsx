@@ -11,7 +11,7 @@ import defaultLogo from'./assets/cbb-stats-logo.webp'
 export default function Player() {
   const [data, setData] = useState([]);
   const { stats_player_seq } = useParams(); 
-
+  
   useEffect(() => {
     // Updated the fetch URL to get player based on stats_player_seq
     fetch(`http://localhost:3000/player/${stats_player_seq}`)
