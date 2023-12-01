@@ -10,12 +10,11 @@ import defaultLogo from'./assets/cbb-stats-logo.webp'
 
 export default function Player() {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Added state for loading indicator
+  const [isLoading, setIsLoading] = useState(true); 
   const { stats_player_seq } = useParams(); 
   
   useEffect(() => {
     setIsLoading(true);
-    // Updated the fetch URL to get player based on stats_player_seq
     fetch(`http://localhost:3000/player/${stats_player_seq}`)
       .then(response => response.json())
       .then(data => {
@@ -28,10 +27,10 @@ export default function Player() {
       });
   }, [stats_player_seq]);
 
-  const playerInfo = data[0] || {};  // Protect against undefined
+  const playerInfo = data[data.length - 1] || {};  
   const { name, Jersey, pos, Yr, school_name } = playerInfo;
 
-  const teamData = teamInfo.find(team => team.ncaa_name === school_name) || {};  // Protect against undefined
+  const teamData = teamInfo.find(team => team.ncaa_name === school_name) || {}; 
 
   const hasBatting = !!data.find(stat => stat.data_type === 'batting' && stat.AB !== 0);
   const hasFielding = !!data.find(stat => stat.data_type === 'fielding');
@@ -44,7 +43,6 @@ export default function Player() {
     if (year === "Sr") return "Senior";
   }
 
-  // Loading Indicator
   if (isLoading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
