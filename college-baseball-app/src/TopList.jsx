@@ -1,5 +1,6 @@
 import { Card, List, ListItem, Typography, Link } from '@mui/material';
 import PropTypes from 'prop-types';
+import './assets/toplist.css';
 
 export default function TopList({ data, title, statKey }) {
 
@@ -13,7 +14,7 @@ export default function TopList({ data, title, statKey }) {
 
   return (
     <Card variant="outlined">
-      <Typography variant="h6">{title}</Typography>
+      <Typography className="toplist-header" variant="h6">{title}</Typography>
       <List>
         {data.map((item, index) => (
           <ListItem key={index}>
