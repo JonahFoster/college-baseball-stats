@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Card, CardContent, Typography, Box, Chip } from '@mui/material';
+import { Container, Card, CardContent, Typography, Box, Chip, CircularProgress } from '@mui/material';
 import Batting from './Batting';
 import Fielding from './Fielding';
 import Pitching from './Pitching';
@@ -10,14 +10,22 @@ import defaultLogo from'./assets/cbb-stats-logo.webp'
 
 export default function Player() {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Added state for loading indicator
   const { stats_player_seq } = useParams(); 
   
   useEffect(() => {
+    setIsLoading(true);
     // Updated the fetch URL to get player based on stats_player_seq
     fetch(`http://localhost:3000/player/${stats_player_seq}`)
       .then(response => response.json())
-      .then(data => setData(data))
-      .catch(error => console.error(error))
+      .then(data => {
+        setData(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, [stats_player_seq]);
 
   const playerInfo = data[0] || {};  // Protect against undefined
@@ -34,6 +42,15 @@ export default function Player() {
     if (year === "So") return "Sophomore";
     if (year === "Jr") return "Junior";
     if (year === "Sr") return "Senior";
+  }
+
+  // Loading Indicator
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
