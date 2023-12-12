@@ -36,36 +36,40 @@ export default function App() {
         main: '#ff4d4d',
       },
       background: {
-        default: darkMode ? '#121212' : '#ffffff',
-        paper: darkMode ? '#1e1e1e' : '#ffffff',
+        default: darkMode ? '#2b2b30' : '#F4F3F2',
+        paper: darkMode ? '#383842' : '#FAFAFA',
       },
       text: {
         primary: darkMode ? '#ffffff' : '#000000',
         secondary: darkMode ? '#bbbbbb' : '#000000',
       },
     },
-    overrides: {
+    components: {
       MuiButton: {
-        root: {
-          borderRadius: '8px',
+        styleOverrides: {
+          root: {
+            borderRadius: '8px',
+          },
         },
       },
       MuiTableCell: {
-        root: {
-          borderBottom: '1px solid rgba(224, 224, 224, 1)',
-        },
-        head: {
-          fontWeight: 'bold',
-          borderBottom: '2px solid rgba(224, 224, 224, 1)', // Thicker border for header cells
-        },
-        body: {
-          '&:not(:last-child)': {
-            borderRight: '1px solid rgba(224, 224, 224, 1)', // Right border for all cells except the last one
+        styleOverrides: {
+          root: {
+            borderBottom: '1px solid #5a5a6b',
+          },
+          head: {
+            fontWeight: 'bold',
+          },
+          body: {
+            '&:not(:last-child)': {
+              borderRight: '1px solid #5a5a6b',
+            },
           },
         },
       },
     },
   });
+  
 
   function handleDarkMode() {
     setDarkMode(!darkMode)
@@ -131,7 +135,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <CssBaseline />
-        <Box>
+        <Box style={{ paddingBottom: '50px' }}>
           <Header
             onSearch={handleSearch}
             darkMode={darkMode}
