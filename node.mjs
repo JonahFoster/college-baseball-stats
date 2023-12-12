@@ -270,12 +270,34 @@ app.get('/player/:playerId', async (req, res) => {
             return res.status(404).send('Player not found');
         }
 
-        res.json(rows);  // Return the entire array, not just the first record
+        res.json(rows);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
     }
 });
+
+app.get('/team/:school_name', async (req, res) => {
+    const schoolName = req.params.school_name;
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'SELECT * FROM collegebaseballplayer_unified WHERE school_name = ? AND season = ?',
+            [schoolName, CURRENT_SEASON]
+        );
+        connection.end();
+
+        if (rows.length === 0) {
+            return res.status(404).send('No players found for this team in the current season');
+        }
+
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
 
 
 app.listen(port, () => {
