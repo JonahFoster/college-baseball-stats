@@ -37,11 +37,12 @@ export default function App() {
       },
       background: {
         default: darkMode ? '#2b2b30' : '#F4F3F2',
-        paper: darkMode ? '#383842' : '#FAFAFA',
+        paper: darkMode ? '#383842' : '#EFF1F3',
       },
       text: {
         primary: darkMode ? '#ffffff' : '#000000',
         secondary: darkMode ? '#bbbbbb' : '#000000',
+        tertiary: darkMode ? '#0055CC' : '#0055CC',
       },
     },
     components: {

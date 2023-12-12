@@ -18,7 +18,7 @@ export default function TopList({ data, title, statKey }) {
       <List>
         {data.map((item, index) => (
           <ListItem key={index}>
-            <Link href={`http://localhost:5173/player/${item.stats_player_seq}`} sx={{ color: 'text.primary', textDecoration: 'none' }}>
+            <Link href={`http://localhost:5173/player/${item.stats_player_seq}`} sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': {color: 'text.tertiary'} }}>
               <Typography component="span">
                 {`${index + 1}. `}
               </Typography>
