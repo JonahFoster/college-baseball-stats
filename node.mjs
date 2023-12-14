@@ -282,8 +282,8 @@ app.get('/team/:school_name', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig);
         const [rows] = await connection.execute(
-            'SELECT * FROM collegebaseballplayer_unified WHERE school_name = ? AND season = ?',
-            [schoolName, CURRENT_SEASON]
+            'SELECT * FROM collegebaseballplayer_unified WHERE school_name = ?',
+            [schoolName]
         );
         connection.end();
 

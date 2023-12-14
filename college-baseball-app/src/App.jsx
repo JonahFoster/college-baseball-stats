@@ -9,7 +9,7 @@ import Search from "./Search.jsx"
 
 export default function App() {
   const [playerData, setPlayerData] = useState(null)
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
   const [multipleSearchResults, setMultipleSearchResults] = useState([]);
   const [topListData, setTopListData] = useState({
     hr: [],
