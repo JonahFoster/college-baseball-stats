@@ -7,15 +7,10 @@ import cors from 'cors'
 dotenv.config()
 
 const app = express()
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'college-baseball-app', 'dist')))
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'college-baseball-app', 'dist', 'index.html'));
-  });
-
 const port = process.env.PORT || 3000
-
-app.use(cors())
 
 const dbConfig = process.env.DB_CONNECTION;
 
@@ -300,7 +295,9 @@ app.get('/team/:school_name', async (req, res) => {
     }
 });
 
-
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'college-baseball-app', 'dist', 'index.html'));
+  });
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
