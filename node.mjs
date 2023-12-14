@@ -10,12 +10,7 @@ const port = 3000
 
 app.use(cors())
 
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-} 
+const dbConfig = process.env.DB_CONNECTION;
 
 const CURRENT_SEASON = '2023'
 
