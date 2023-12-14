@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -6,6 +7,12 @@ import cors from 'cors'
 dotenv.config()
 
 const app = express()
+app.use(express.static(path.join(__dirname, 'college-baseball-app', 'dist')))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'college-baseball-app', 'dist', 'index.html'));
+  });
+
 const port = process.env.PORT || 3000
 
 app.use(cors())

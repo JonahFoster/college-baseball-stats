@@ -37,7 +37,7 @@ jobs:
           path: |
             node.mjs
             package.json
-            college-baseball-app/build
+            college-baseball-app/dist/**
 
   deploy:
     runs-on: ubuntu-latest
