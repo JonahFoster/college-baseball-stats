@@ -1,18 +1,20 @@
 import express from 'express'
-import path from 'path'
+import path from 'path';
+import { fileURLToPath } from 'url'
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
 dotenv.config()
-
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const app = express()
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'college-baseball-app', 'dist')))
+app.use(express.static(path.join(__dirname, 'college-baseball-app', 'dist')));
 
 const port = process.env.PORT || 3000
 
-const dbConfig = process.env.DB_CONNECTION;
+const dbConfig = process.env.DB_CONNECTION
 
 const CURRENT_SEASON = '2023'
 
@@ -25,7 +27,7 @@ app.get('/top-hr', async (req, res) => {
             `SELECT name, stats_player_seq, HR
              FROM collegebaseballplayer_unified
              WHERE data_type = 'batting' AND season = ?
-             ORDER BY HR DESC
+             ORDER BY HR DESC   
              LIMIT 10`,
              [CURRENT_SEASON]
         );
