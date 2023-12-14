@@ -2,10 +2,12 @@
   "name": "college-baseball-stats",
   "version": "1.0.0",
   "description": "",
-  "main": "node.js",
+  "main": "node.mjs",
   "scripts": {
     "test": "echo \"No tests specified\"",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node node.mjs",
+    "start:prod": "node node.mjs",
+    "start:dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node node.mjs",
     "client": "cd college-baseball-app && npm run dev"
   },
