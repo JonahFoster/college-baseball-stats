@@ -38,6 +38,7 @@ jobs:
             node.mjs
             package.json
             college-baseball-app/dist/**
+            web.config
 
   deploy:
     runs-on: ubuntu-latest
