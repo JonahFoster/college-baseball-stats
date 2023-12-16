@@ -20,11 +20,6 @@ jobs:
           echo "Printing system information..."
           systeminfo
 
-      - name: Network Diagnostics
-        run: |
-          echo "Running network diagnostics..."
-          ping -n 5 www.github.com
-
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
