@@ -1,20 +1,22 @@
-const express = require('express');
-const path = require('path');
-const mysql = require('mysql2/promise');
-const dotenv = require('dotenv');
-const cors = require('cors');
+import express from 'express'
+import path from 'path';
+import { fileURLToPath } from 'url'
+import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+import cors from 'cors'
 
-dotenv.config();
-
-const app = express();
+dotenv.config()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const app = express()
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'college-baseball-app', 'dist')));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
-const dbConfig = process.env.DB_CONNECTION;
+const dbConfig = process.env.DB_CONNECTION
 
-const CURRENT_SEASON = '2023';
+const CURRENT_SEASON = '2023'
 
 // Top 10 Home Run Hitters
 app.get('/top-hr', async (req, res) => {
