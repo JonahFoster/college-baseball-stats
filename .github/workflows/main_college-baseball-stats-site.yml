@@ -35,7 +35,7 @@ jobs:
         with:
           name: node-app
           path: |
-            node.mjs
+            node.js
             package.json
             college-baseball-app/dist/**
             web.config
