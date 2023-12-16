@@ -28,7 +28,7 @@ jobs:
       - name: npm install and build for Node.js server
         run: |
           npm install
-          npm run build --if-present
+          npm run build
           npm run test --if-present
 
       - name: npm install and build for React app
