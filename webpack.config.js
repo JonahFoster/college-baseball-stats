@@ -30,4 +30,7 @@ module.exports = {
     fullySpecified: false
   },
   optimization: {
-    minimize
+    minimize: false
+  },
+  devtool: 'source-map'
+};
