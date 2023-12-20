@@ -1,15 +1,14 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  target: 'web', // Changed from 'node' to 'web'
+  target: 'node',
+  externals: [nodeExternals()],
   entry: './node.mjs',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    // If you need a library target, choose one appropriate for the web, or you might not need this line at all.
-  },
-  externals: {
-    'mysql2': 'commonjs2 mysql2' // Review if this is needed for the web target
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
